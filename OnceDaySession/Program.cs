@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.IO;
 
 namespace OnceDaySession
 {
@@ -30,7 +31,17 @@ namespace OnceDaySession
 		
 		private static void Main(string[] args)
 		{
-			Thread.Sleep(TimerInterval*1000);
+			
+			//http://codesnippets.fesslersoft.de/get-the-executable-filename-in-c/
+			string fexe=Path.GetFullPath(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+			
+			if (File.GetCreationTime(fexe).Date<DateTime.Now)
+			{
+				File.SetCreationTime(fexe, DateTime.Now);			
+				Thread.Sleep(TimerInterval*1000);
+				
+			}
+			
 			Thread tAlarm1 = new Thread(ShowAlarm1);
     		tAlarm1.Start();            
 			
