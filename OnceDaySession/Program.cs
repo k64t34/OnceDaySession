@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
+using System.Security.Permissions;
+using Microsoft.Win32;
 
 namespace OnceDaySession
 {
@@ -32,15 +34,20 @@ namespace OnceDaySession
 		private static void Main(string[] args)
 		{
 			
-			//http://codesnippets.fesslersoft.de/get-the-executable-filename-in-c/
-			string fexe=Path.GetFullPath(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-			
-			if (File.GetCreationTime(fexe).Date<DateTime.Now)
+			//Create conig if not exist
+			RegistryKey RegKey = Registry.CurrentUser.CreateSubKey("Software\\OnceDaySession\\");
+			if (RegKey==null)
 			{
-				File.SetCreationTime(fexe, DateTime.Now);			
-				Thread.Sleep(TimerInterval*1000);
-				
+				//use default value
 			}
+			else
+			{				
+				//Read config
+			
+			}
+			Thread.Sleep(TimerInterval*1000);
+				
+			
 			
 			Thread tAlarm1 = new Thread(ShowAlarm1);
     		tAlarm1.Start();            
