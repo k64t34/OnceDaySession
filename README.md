@@ -1,0 +1,1 @@
+Once session per day
