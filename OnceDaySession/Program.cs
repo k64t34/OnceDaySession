@@ -33,7 +33,7 @@ namespace OnceDaySession
 		
 		private static void Main(string[] args)
 		{
-			
+			const string kLastLogin="LastLogin";
 			//Create conig if not exist
 			RegistryKey RegKey = Registry.CurrentUser.CreateSubKey("Software\\OnceDaySession\\");
 			if (RegKey==null)
@@ -41,7 +41,18 @@ namespace OnceDaySession
 				//use default value
 			}
 			else
-			{				
+			{	
+				
+				RegistryValueKind rvk = RegKey.GetValueKind(kLastLogin);
+				if (rvk==RegistryValueKind.String)
+				{
+					
+				}
+				else
+				{
+				//Удалить ключ  и создать новый правильны	
+				}
+				
 				//Read config
 			
 			}
