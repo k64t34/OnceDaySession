@@ -56,7 +56,14 @@ namespace OnceDaySession
 				//Read config
 			
 			}
-			Thread.Sleep(TimerInterval*1000);
+			#if DEBUG
+    				Thread.Sleep(TimerInterval*1000);    			
+			#else
+    				Thread.Sleep(TimerInterval*60000); 
+    				CountdownTimerInterval=CountdownTimerInterval*60;
+			#endif
+				
+			
 				
 			
 			
@@ -69,7 +76,11 @@ namespace OnceDaySession
     		tAlarm2.Start();   
 			Thread.Sleep(1000);
 
-			//ExitWindows.LogOff(true);
+			#if DEBUG
+				
+			#else
+    				ExitWindows.LogOff(true); 
+			#endif
 			
 				
 			Thread.Sleep(3000);
